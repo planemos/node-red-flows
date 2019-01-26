@@ -1,1 +1,1 @@
-sudo cp -avr /node-red-flows ~/.node-red/lib/flows/
+sudo cp -avr ./* ~/.node-red/lib/flows/
