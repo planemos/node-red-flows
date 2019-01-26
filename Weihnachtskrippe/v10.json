@@ -1,0 +1,1541 @@
+[
+  {
+    "id": "b981ac3c.6cf138",
+    "type": "delay",
+    "z": "de7d9f22.760378",
+    "name": "loop delay",
+    "pauseType": "delayv",
+    "timeout": "1",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "x": 670,
+    "y": 630,
+    "wires": [
+      [
+        "8158c5e.685a8b8"
+      ]
+    ]
+  },
+  {
+    "id": "789d6f54.09de58",
+    "type": "change",
+    "z": "de7d9f22.760378",
+    "name": "set blinky state",
+    "rules": [
+      {
+        "t": "set",
+        "p": "blinky",
+        "pt": "flow",
+        "to": "payload",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 680,
+    "y": 680,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "a410d016.6831e8",
+    "type": "rpi-gpio out",
+    "z": "de7d9f22.760378",
+    "name": "Raspy LED 1",
+    "pin": "37",
+    "set": false,
+    "level": "0",
+    "freq": "50",
+    "out": "pwm",
+    "x": 1940,
+    "y": 420,
+    "wires": []
+  },
+  {
+    "id": "44f3e534.96fd24",
+    "type": "rpi-gpio out",
+    "z": "de7d9f22.760378",
+    "name": "Raspy LED 2",
+    "pin": "35",
+    "set": false,
+    "level": "0",
+    "freq": "50",
+    "out": "pwm",
+    "x": 1940,
+    "y": 510,
+    "wires": []
+  },
+  {
+    "id": "9c51c847.9d9298",
+    "type": "change",
+    "z": "de7d9f22.760378",
+    "name": "convert true false",
+    "rules": [
+      {
+        "t": "change",
+        "p": "payload",
+        "pt": "msg",
+        "from": "true",
+        "fromt": "bool",
+        "to": "brightness",
+        "tot": "flow"
+      },
+      {
+        "t": "change",
+        "p": "payload",
+        "pt": "msg",
+        "from": "false",
+        "fromt": "bool",
+        "to": "0",
+        "tot": "num"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1590,
+    "y": 420,
+    "wires": [
+      [
+        "a410d016.6831e8",
+        "766e6d25.f1718c"
+      ]
+    ]
+  },
+  {
+    "id": "d397c077.85f908",
+    "type": "change",
+    "z": "de7d9f22.760378",
+    "name": "convert true false",
+    "rules": [
+      {
+        "t": "change",
+        "p": "payload",
+        "pt": "msg",
+        "from": "true",
+        "fromt": "bool",
+        "to": "brightness",
+        "tot": "flow"
+      },
+      {
+        "t": "change",
+        "p": "payload",
+        "pt": "msg",
+        "from": "false",
+        "fromt": "bool",
+        "to": "0",
+        "tot": "num"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1590,
+    "y": 510,
+    "wires": [
+      [
+        "44f3e534.96fd24",
+        "ea884b0a.8208f"
+      ]
+    ]
+  },
+  {
+    "id": "dc8fdb5c.8494f",
+    "type": "rpi-gpio in",
+    "z": "de7d9f22.760378",
+    "name": "Raspy Pushbutton",
+    "pin": "40",
+    "intype": "down",
+    "debounce": "25",
+    "read": false,
+    "x": 120,
+    "y": 420,
+    "wires": [
+      [
+        "3bed8492.c06474"
+      ]
+    ]
+  },
+  {
+    "id": "c47123a2.52f048",
+    "type": "ui_switch",
+    "z": "de7d9f22.760378",
+    "name": "Automatic blinking",
+    "label": "Automatic blinking",
+    "group": "ffaa2000.a205f",
+    "order": 1,
+    "width": 0,
+    "height": 0,
+    "passthru": true,
+    "decouple": "false",
+    "topic": "command",
+    "style": "",
+    "onvalue": "true",
+    "onvalueType": "bool",
+    "onicon": "",
+    "oncolor": "",
+    "offvalue": "false",
+    "offvalueType": "bool",
+    "officon": "",
+    "offcolor": "",
+    "x": 410,
+    "y": 570,
+    "wires": [
+      [
+        "789d6f54.09de58",
+        "8158c5e.685a8b8"
+      ]
+    ]
+  },
+  {
+    "id": "37d26038.de7ac",
+    "type": "ui_switch",
+    "z": "de7d9f22.760378",
+    "name": "Switch LED 1",
+    "label": "Switch LED 1",
+    "group": "b1b8d22a.186668",
+    "order": 2,
+    "width": "4",
+    "height": "1",
+    "passthru": true,
+    "decouple": "false",
+    "topic": "LED 1",
+    "style": "",
+    "onvalue": "true",
+    "onvalueType": "bool",
+    "onicon": "",
+    "oncolor": "",
+    "offvalue": "false",
+    "offvalueType": "bool",
+    "officon": "",
+    "offcolor": "",
+    "x": 1390,
+    "y": 420,
+    "wires": [
+      [
+        "9c51c847.9d9298"
+      ]
+    ]
+  },
+  {
+    "id": "31d9a830.1918b",
+    "type": "ui_switch",
+    "z": "de7d9f22.760378",
+    "name": "Switch LED 2",
+    "label": "Switch LED 2",
+    "group": "b1b8d22a.186668",
+    "order": 4,
+    "width": "4",
+    "height": "1",
+    "passthru": true,
+    "decouple": "false",
+    "topic": "LED 2",
+    "style": "",
+    "onvalue": "true",
+    "onvalueType": "bool",
+    "onicon": "",
+    "oncolor": "",
+    "offvalue": "false",
+    "offvalueType": "bool",
+    "officon": "",
+    "offcolor": "",
+    "x": 1390,
+    "y": 510,
+    "wires": [
+      [
+        "d397c077.85f908"
+      ]
+    ]
+  },
+  {
+    "id": "5b769c1d.4ba944",
+    "type": "ui_slider",
+    "z": "de7d9f22.760378",
+    "name": "frequency slider",
+    "label": "Blink frequency",
+    "group": "ffaa2000.a205f",
+    "order": 2,
+    "width": 0,
+    "height": 0,
+    "passthru": true,
+    "outs": "end",
+    "topic": "delay",
+    "min": "600",
+    "max": "2500",
+    "step": "100",
+    "x": 400,
+    "y": 520,
+    "wires": [
+      [
+        "8158c5e.685a8b8"
+      ]
+    ]
+  },
+  {
+    "id": "41eeb3dc.71567c",
+    "type": "ui_template",
+    "z": "de7d9f22.760378",
+    "group": "b1b8d22a.186668",
+    "name": "Form LED 1 dot",
+    "order": 1,
+    "width": "2",
+    "height": "1",
+    "format": "<svg>\n<circle cx=\"10\" cy=\"10\" r=\"10\" style=\"stroke: none; fill: {{msg.color}};\"/>\n</svg>",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "templateScope": "local",
+    "x": 1950,
+    "y": 380,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "d7e42fe8.ba6de8",
+    "type": "ui_template",
+    "z": "de7d9f22.760378",
+    "group": "b1b8d22a.186668",
+    "name": "Form LED 2 dot",
+    "order": 3,
+    "width": "2",
+    "height": "1",
+    "format": "<svg>\n<circle cx=\"10\" cy=\"10\" r=\"10\" style=\"stroke: none; fill: {{msg.color}};\"/>\n</svg>",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "templateScope": "local",
+    "x": 1950,
+    "y": 470,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "e70e3f46.dc2cf",
+    "type": "inject",
+    "z": "de7d9f22.760378",
+    "name": "initialize 1",
+    "topic": "init",
+    "payload": "1",
+    "payloadType": "num",
+    "repeat": "",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "0.1",
+    "x": 110,
+    "y": 180,
+    "wires": [
+      [
+        "61f3d7c.1b49628",
+        "4530627b.8a6f8c"
+      ]
+    ]
+  },
+  {
+    "id": "3bed8492.c06474",
+    "type": "switch",
+    "z": "de7d9f22.760378",
+    "name": "just positive flank",
+    "property": "payload",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "1",
+        "vt": "num"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 120,
+    "y": 470,
+    "wires": [
+      [
+        "6ef93a54.9e4944"
+      ]
+    ]
+  },
+  {
+    "id": "5e26a2d.91f32dc",
+    "type": "function",
+    "z": "de7d9f22.760378",
+    "name": "invert it",
+    "func": "msg.payload = !msg.payload;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 90,
+    "y": 570,
+    "wires": [
+      [
+        "c47123a2.52f048"
+      ]
+    ]
+  },
+  {
+    "id": "6ef93a54.9e4944",
+    "type": "change",
+    "z": "de7d9f22.760378",
+    "name": "replace with blinky state",
+    "rules": [
+      {
+        "t": "set",
+        "p": "payload",
+        "pt": "msg",
+        "to": "blinky",
+        "tot": "flow"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 140,
+    "y": 520,
+    "wires": [
+      [
+        "5e26a2d.91f32dc"
+      ]
+    ],
+    "outputLabels": [
+      "stete of flow.blinky as msg.payload"
+    ]
+  },
+  {
+    "id": "51d90de8.bdca6c",
+    "type": "ui_slider",
+    "z": "de7d9f22.760378",
+    "name": "brightness slider",
+    "label": "LED brightness",
+    "group": "ffaa2000.a205f",
+    "order": 3,
+    "width": 0,
+    "height": 0,
+    "passthru": true,
+    "outs": "end",
+    "topic": "brightness",
+    "min": "1",
+    "max": "100",
+    "step": "1",
+    "x": 410,
+    "y": 470,
+    "wires": [
+      [
+        "26ccdeca.2ec42a"
+      ]
+    ]
+  },
+  {
+    "id": "26ccdeca.2ec42a",
+    "type": "change",
+    "z": "de7d9f22.760378",
+    "name": "set brightness status",
+    "rules": [
+      {
+        "t": "set",
+        "p": "brightness",
+        "pt": "flow",
+        "to": "payload",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 700,
+    "y": 470,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "766e6d25.f1718c",
+    "type": "function",
+    "z": "de7d9f22.760378",
+    "name": "set color",
+    "func": "if (msg.payload > 0){\n    msg.color = 'yellow';\n} else {\n    msg.color = 'black';\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1780,
+    "y": 380,
+    "wires": [
+      [
+        "41eeb3dc.71567c"
+      ]
+    ]
+  },
+  {
+    "id": "ea884b0a.8208f",
+    "type": "function",
+    "z": "de7d9f22.760378",
+    "name": "set color",
+    "func": "if (msg.payload > 0){\n    msg.color = 'red';\n} else {\n    msg.color = 'black';\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1780,
+    "y": 470,
+    "wires": [
+      [
+        "d7e42fe8.ba6de8"
+      ]
+    ]
+  },
+  {
+    "id": "61f3d7c.1b49628",
+    "type": "ui_slider",
+    "z": "de7d9f22.760378",
+    "name": "blinking mode slider",
+    "label": "Blinking mode",
+    "group": "ffaa2000.a205f",
+    "order": 4,
+    "width": 0,
+    "height": 0,
+    "passthru": true,
+    "outs": "end",
+    "topic": "mode",
+    "min": "0",
+    "max": "2",
+    "step": 1,
+    "x": 420,
+    "y": 420,
+    "wires": [
+      [
+        "818a6985.ff36a8"
+      ]
+    ]
+  },
+  {
+    "id": "818a6985.ff36a8",
+    "type": "change",
+    "z": "de7d9f22.760378",
+    "name": "set mode status",
+    "rules": [
+      {
+        "t": "set",
+        "p": "mode",
+        "pt": "flow",
+        "to": "payload",
+        "tot": "msg"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 680,
+    "y": 420,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "b921b7fc.9069b8",
+    "type": "switch",
+    "z": "de7d9f22.760378",
+    "name": "mode 2",
+    "property": "mode",
+    "propertyType": "flow",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "2",
+        "vt": "num"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 990,
+    "y": 420,
+    "wires": [
+      [
+        "37d26038.de7ac",
+        "40123c0d.8d18dc",
+        "ad84d3b8.da7cc",
+        "1f06da42.c32bde"
+      ]
+    ]
+  },
+  {
+    "id": "f84fbe04.8c943",
+    "type": "switch",
+    "z": "de7d9f22.760378",
+    "name": "mode 1",
+    "property": "mode",
+    "propertyType": "flow",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "1",
+        "vt": "num"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 1000,
+    "y": 580,
+    "wires": [
+      [
+        "43b87632.4c14a8"
+      ]
+    ]
+  },
+  {
+    "id": "40123c0d.8d18dc",
+    "type": "function",
+    "z": "de7d9f22.760378",
+    "name": "invert signal",
+    "func": "msg.payload = !msg.payload;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1000,
+    "y": 460,
+    "wires": [
+      [
+        "31d9a830.1918b",
+        "55cabec9.d9399"
+      ]
+    ]
+  },
+  {
+    "id": "43b87632.4c14a8",
+    "type": "trigger",
+    "z": "de7d9f22.760378",
+    "op1": "true",
+    "op2": "false",
+    "op1type": "bool",
+    "op2type": "bool",
+    "duration": "250",
+    "extend": false,
+    "units": "ms",
+    "reset": "",
+    "bytopic": "all",
+    "name": "",
+    "x": 1020,
+    "y": 630,
+    "wires": [
+      [
+        "fa25f64b.c55af",
+        "37d26038.de7ac"
+      ]
+    ]
+  },
+  {
+    "id": "fa25f64b.c55af",
+    "type": "delay",
+    "z": "de7d9f22.760378",
+    "name": "",
+    "pauseType": "delay",
+    "timeout": "200",
+    "timeoutUnits": "milliseconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "x": 1010,
+    "y": 680,
+    "wires": [
+      [
+        "31d9a830.1918b",
+        "f285988f.d746c"
+      ]
+    ]
+  },
+  {
+    "id": "ad84d3b8.da7cc",
+    "type": "ui_switch",
+    "z": "de7d9f22.760378",
+    "name": "Switch LED 3",
+    "label": "Switch LED 3",
+    "group": "b1b8d22a.186668",
+    "order": 6,
+    "width": "4",
+    "height": "1",
+    "passthru": true,
+    "decouple": "false",
+    "topic": "LED 3",
+    "style": "",
+    "onvalue": "true",
+    "onvalueType": "bool",
+    "onicon": "",
+    "oncolor": "",
+    "offvalue": "false",
+    "offvalueType": "bool",
+    "officon": "",
+    "offcolor": "",
+    "x": 1390,
+    "y": 600,
+    "wires": [
+      [
+        "8e1902fa.7bed78"
+      ]
+    ]
+  },
+  {
+    "id": "8e1902fa.7bed78",
+    "type": "change",
+    "z": "de7d9f22.760378",
+    "name": "convert true false",
+    "rules": [
+      {
+        "t": "change",
+        "p": "payload",
+        "pt": "msg",
+        "from": "true",
+        "fromt": "bool",
+        "to": "brightness",
+        "tot": "flow"
+      },
+      {
+        "t": "change",
+        "p": "payload",
+        "pt": "msg",
+        "from": "false",
+        "fromt": "bool",
+        "to": "0",
+        "tot": "num"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1590,
+    "y": 600,
+    "wires": [
+      [
+        "cae3acf3.009558",
+        "cce2fa1.035ad08"
+      ]
+    ]
+  },
+  {
+    "id": "bca6f5b6.dadb6",
+    "type": "rpi-gpio out",
+    "z": "de7d9f22.760378",
+    "name": "Raspy LED 3",
+    "pin": "33",
+    "set": false,
+    "level": "0",
+    "freq": "50",
+    "out": "pwm",
+    "x": 1940,
+    "y": 600,
+    "wires": []
+  },
+  {
+    "id": "a9b19399.c726f",
+    "type": "ui_template",
+    "z": "de7d9f22.760378",
+    "group": "b1b8d22a.186668",
+    "name": "Form LED 3 dot",
+    "order": 5,
+    "width": "2",
+    "height": "1",
+    "format": "<svg>\n<circle cx=\"10\" cy=\"10\" r=\"10\" style=\"stroke: none; fill: {{msg.color}};\"/>\n</svg>",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "templateScope": "local",
+    "x": 1950,
+    "y": 560,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "cae3acf3.009558",
+    "type": "function",
+    "z": "de7d9f22.760378",
+    "name": "set color",
+    "func": "if (msg.payload > 0){\n    msg.color = 'green';\n} else {\n    msg.color = 'black';\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1780,
+    "y": 560,
+    "wires": [
+      [
+        "a9b19399.c726f"
+      ]
+    ]
+  },
+  {
+    "id": "f285988f.d746c",
+    "type": "delay",
+    "z": "de7d9f22.760378",
+    "name": "",
+    "pauseType": "delay",
+    "timeout": "200",
+    "timeoutUnits": "milliseconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "x": 1010,
+    "y": 730,
+    "wires": [
+      [
+        "ad84d3b8.da7cc",
+        "ec467b73.a0f79"
+      ]
+    ]
+  },
+  {
+    "id": "8158c5e.685a8b8",
+    "type": "function",
+    "z": "de7d9f22.760378",
+    "name": "while loop",
+    "func": "// Required local variables\ncontext.delay = context.delay || 1000;\ncontext.toggle = context.toggle || false;\ncontext.active = context.active || false;\n\n// If new command-msg arrives,\n// change state accordingly\nif (msg.topic == \"command\"){\n    // Conditions for starting\n    if (msg.payload & !context.active) {\n        context.active = true;\n        context.toggle = true;\n        msg.payload = context.toggle;\n        msg.topic = true;\n    // Conditions for stopping\n    } else if (!msg.payload & context.active) {\n        context.active = false;\n        context.toggle = false;\n        msg.payload = context.toggle;\n        msg.topic = true;\n    }\n// If a message with a new delay arrived\n// take and accept the new delay. Inactivate\n// the message by setting the topic to command\n} else if (msg.topic == \"delay\"){\n    context.delay = msg.payload;\n    msg.topic = \"command\";\n// If not, just toggle the state\n} else {\n    context.toggle = !context.toggle;\n}\n\n// If loop is active and it is not a repeated\n// start command, generate and send msg\nif (context.active & msg.topic !== \"command\") {\n    msg.delay = context.delay;\n    msg.payload = context.toggle;\n    return msg;\n}\n",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 660,
+    "y": 570,
+    "wires": [
+      [
+        "b981ac3c.6cf138",
+        "b921b7fc.9069b8",
+        "f84fbe04.8c943"
+      ]
+    ]
+  },
+  {
+    "id": "df54e783.b8cd18",
+    "type": "comment",
+    "z": "de7d9f22.760378",
+    "name": "Initialisations",
+    "info": "",
+    "x": 110,
+    "y": 130,
+    "wires": []
+  },
+  {
+    "id": "2abb4624.b1791a",
+    "type": "comment",
+    "z": "de7d9f22.760378",
+    "name": "Push-Button and signal-handling",
+    "info": "",
+    "x": 160,
+    "y": 370,
+    "wires": []
+  },
+  {
+    "id": "84a1d44a.966748",
+    "type": "comment",
+    "z": "de7d9f22.760378",
+    "name": "Controll-Form",
+    "info": "",
+    "x": 390,
+    "y": 370,
+    "wires": []
+  },
+  {
+    "id": "503cd347.dc4c9c",
+    "type": "comment",
+    "z": "de7d9f22.760378",
+    "name": "Functions",
+    "info": "",
+    "x": 660,
+    "y": 370,
+    "wires": []
+  },
+  {
+    "id": "43537c3.6e1ca84",
+    "type": "comment",
+    "z": "de7d9f22.760378",
+    "name": "Different blinking modes",
+    "info": "",
+    "x": 1050,
+    "y": 370,
+    "wires": []
+  },
+  {
+    "id": "71ef8e0.7da1574",
+    "type": "comment",
+    "z": "de7d9f22.760378",
+    "name": "Output to LED",
+    "info": "",
+    "x": 1790,
+    "y": 330,
+    "wires": []
+  },
+  {
+    "id": "2483b95a.b61516",
+    "type": "comment",
+    "z": "de7d9f22.760378",
+    "name": "Form-Switches",
+    "info": "",
+    "x": 1390,
+    "y": 370,
+    "wires": []
+  },
+  {
+    "id": "ad833ef6.eed2d",
+    "type": "inject",
+    "z": "de7d9f22.760378",
+    "name": "initialize false",
+    "topic": "init",
+    "payload": "false",
+    "payloadType": "bool",
+    "repeat": "",
+    "crontab": "",
+    "once": true,
+    "onceDelay": "0.1",
+    "x": 120,
+    "y": 230,
+    "wires": [
+      [
+        "c47123a2.52f048",
+        "37d26038.de7ac",
+        "31d9a830.1918b",
+        "ad84d3b8.da7cc",
+        "1f06da42.c32bde",
+        "9558bb45.114358"
+      ]
+    ]
+  },
+  {
+    "id": "4530627b.8a6f8c",
+    "type": "function",
+    "z": "de7d9f22.760378",
+    "name": "scale to 100",
+    "func": "msg.payload *= 100;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 320,
+    "y": 180,
+    "wires": [
+      [
+        "98e24b40.8a67d",
+        "51d90de8.bdca6c"
+      ]
+    ]
+  },
+  {
+    "id": "98e24b40.8a67d",
+    "type": "function",
+    "z": "de7d9f22.760378",
+    "name": "scale to 1000",
+    "func": "msg.payload *= 10;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 510,
+    "y": 180,
+    "wires": [
+      [
+        "5b769c1d.4ba944"
+      ]
+    ]
+  },
+  {
+    "id": "cce2fa1.035ad08",
+    "type": "function",
+    "z": "de7d9f22.760378",
+    "name": "scaling green",
+    "func": "var scaling_factor = 0.1;\n\nif (msg.payload > 0){\n    msg.payload = Math.max(parseInt(msg.payload*scaling_factor),1);\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1780,
+    "y": 600,
+    "wires": [
+      [
+        "bca6f5b6.dadb6"
+      ]
+    ]
+  },
+  {
+    "id": "394a702c.b77248",
+    "type": "rpi-gpio in",
+    "z": "de7d9f22.760378",
+    "name": "pull-down-input",
+    "pin": "38",
+    "intype": "tri",
+    "debounce": "25",
+    "read": false,
+    "x": 110,
+    "y": 730,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "def32632.bb1628",
+    "type": "function",
+    "z": "de7d9f22.760378",
+    "name": "cool off",
+    "func": "context.state = context.state || false;\ncontext.wait = context.wait || false;\n\nif (msg.payload === 1 & context.wait === false) {\n    context.state = !context.state;\n    context.wait = true;\n    return [{topic:'command',payload:context.state},{payload:'reset'}]\n} else if (msg.payload == 'reset'){\n    context.wait = false; \n}",
+    "outputs": 2,
+    "noerr": 0,
+    "x": 310,
+    "y": 730,
+    "wires": [
+      [
+        "8158c5e.685a8b8",
+        "789d6f54.09de58"
+      ],
+      [
+        "cc46531c.9a8bc"
+      ]
+    ]
+  },
+  {
+    "id": "cc46531c.9a8bc",
+    "type": "delay",
+    "z": "de7d9f22.760378",
+    "name": "",
+    "pauseType": "delay",
+    "timeout": "1",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "x": 310,
+    "y": 780,
+    "wires": [
+      [
+        "def32632.bb1628"
+      ]
+    ]
+  },
+  {
+    "id": "55cabec9.d9399",
+    "type": "ui_switch",
+    "z": "de7d9f22.760378",
+    "name": "Switch LED 4",
+    "label": "Switch LED 4",
+    "group": "b1b8d22a.186668",
+    "order": 8,
+    "width": "4",
+    "height": "1",
+    "passthru": true,
+    "decouple": "false",
+    "topic": "LED 4",
+    "style": "",
+    "onvalue": "true",
+    "onvalueType": "bool",
+    "onicon": "",
+    "oncolor": "",
+    "offvalue": "false",
+    "offvalueType": "bool",
+    "officon": "",
+    "offcolor": "",
+    "x": 1390,
+    "y": 690,
+    "wires": [
+      [
+        "eadd3af8.5e8f28"
+      ]
+    ]
+  },
+  {
+    "id": "eadd3af8.5e8f28",
+    "type": "change",
+    "z": "de7d9f22.760378",
+    "name": "convert true false",
+    "rules": [
+      {
+        "t": "change",
+        "p": "payload",
+        "pt": "msg",
+        "from": "true",
+        "fromt": "bool",
+        "to": "brightness",
+        "tot": "flow"
+      },
+      {
+        "t": "change",
+        "p": "payload",
+        "pt": "msg",
+        "from": "false",
+        "fromt": "bool",
+        "to": "0",
+        "tot": "num"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1590,
+    "y": 690,
+    "wires": [
+      [
+        "719bf3ba.b65f4c",
+        "38e4fc30.7b79dc"
+      ]
+    ]
+  },
+  {
+    "id": "38e4fc30.7b79dc",
+    "type": "function",
+    "z": "de7d9f22.760378",
+    "name": "set color",
+    "func": "if (msg.payload > 0){\n    msg.color = 'yellow';\n} else {\n    msg.color = 'black';\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1780,
+    "y": 650,
+    "wires": [
+      [
+        "c137b390.66201"
+      ]
+    ]
+  },
+  {
+    "id": "c137b390.66201",
+    "type": "ui_template",
+    "z": "de7d9f22.760378",
+    "group": "b1b8d22a.186668",
+    "name": "Form LED 4 dot",
+    "order": 7,
+    "width": "2",
+    "height": "1",
+    "format": "<svg>\n<circle cx=\"10\" cy=\"10\" r=\"10\" style=\"stroke: none; fill: {{msg.color}};\"/>\n</svg>",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "templateScope": "local",
+    "x": 1950,
+    "y": 650,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "719bf3ba.b65f4c",
+    "type": "rpi-gpio out",
+    "z": "de7d9f22.760378",
+    "name": "Raspy LED 4",
+    "pin": "31",
+    "set": false,
+    "level": "0",
+    "freq": "50",
+    "out": "pwm",
+    "x": 1940,
+    "y": 690,
+    "wires": []
+  },
+  {
+    "id": "ec467b73.a0f79",
+    "type": "delay",
+    "z": "de7d9f22.760378",
+    "name": "",
+    "pauseType": "delay",
+    "timeout": "200",
+    "timeoutUnits": "milliseconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "x": 1010,
+    "y": 780,
+    "wires": [
+      [
+        "55cabec9.d9399",
+        "8310985f.ec3a08"
+      ]
+    ]
+  },
+  {
+    "id": "1f06da42.c32bde",
+    "type": "ui_switch",
+    "z": "de7d9f22.760378",
+    "name": "Switch LED 5",
+    "label": "Switch LED 5",
+    "group": "b1b8d22a.186668",
+    "order": 10,
+    "width": "4",
+    "height": "1",
+    "passthru": true,
+    "decouple": "false",
+    "topic": "LED 5",
+    "style": "",
+    "onvalue": "true",
+    "onvalueType": "bool",
+    "onicon": "",
+    "oncolor": "",
+    "offvalue": "false",
+    "offvalueType": "bool",
+    "officon": "",
+    "offcolor": "",
+    "x": 1390,
+    "y": 780,
+    "wires": [
+      [
+        "5727a261.76e07c"
+      ]
+    ]
+  },
+  {
+    "id": "5727a261.76e07c",
+    "type": "change",
+    "z": "de7d9f22.760378",
+    "name": "convert true false",
+    "rules": [
+      {
+        "t": "change",
+        "p": "payload",
+        "pt": "msg",
+        "from": "true",
+        "fromt": "bool",
+        "to": "brightness",
+        "tot": "flow"
+      },
+      {
+        "t": "change",
+        "p": "payload",
+        "pt": "msg",
+        "from": "false",
+        "fromt": "bool",
+        "to": "0",
+        "tot": "num"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1590,
+    "y": 780,
+    "wires": [
+      [
+        "f9208cd1.ffa848",
+        "634f8c20.5b030c"
+      ]
+    ]
+  },
+  {
+    "id": "634f8c20.5b030c",
+    "type": "function",
+    "z": "de7d9f22.760378",
+    "name": "set color",
+    "func": "if (msg.payload > 0){\n    msg.color = 'brown';\n} else {\n    msg.color = 'black';\n}\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1780,
+    "y": 740,
+    "wires": [
+      [
+        "4f41de31.d9e9c"
+      ]
+    ]
+  },
+  {
+    "id": "4f41de31.d9e9c",
+    "type": "ui_template",
+    "z": "de7d9f22.760378",
+    "group": "b1b8d22a.186668",
+    "name": "Form LED 5 dot",
+    "order": 9,
+    "width": "2",
+    "height": "1",
+    "format": "<svg>\n<circle cx=\"10\" cy=\"10\" r=\"10\" style=\"stroke: none; fill: {{msg.color}};\"/>\n</svg>",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "templateScope": "local",
+    "x": 1950,
+    "y": 740,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "f9208cd1.ffa848",
+    "type": "rpi-gpio out",
+    "z": "de7d9f22.760378",
+    "name": "Raspy LED 5",
+    "pin": "29",
+    "set": false,
+    "level": "0",
+    "freq": "50",
+    "out": "pwm",
+    "x": 1940,
+    "y": 780,
+    "wires": []
+  },
+  {
+    "id": "d51a9f0d.4b3d48",
+    "type": "ledborg",
+    "z": "de7d9f22.760378",
+    "name": "Raspy LED Star",
+    "x": 1950,
+    "y": 880,
+    "wires": []
+  },
+  {
+    "id": "8310985f.ec3a08",
+    "type": "delay",
+    "z": "de7d9f22.760378",
+    "name": "",
+    "pauseType": "delay",
+    "timeout": "200",
+    "timeoutUnits": "milliseconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "x": 1010,
+    "y": 830,
+    "wires": [
+      [
+        "1f06da42.c32bde",
+        "c99bb409.897ac"
+      ]
+    ]
+  },
+  {
+    "id": "c99bb409.897ac",
+    "type": "delay",
+    "z": "de7d9f22.760378",
+    "name": "",
+    "pauseType": "delay",
+    "timeout": "200",
+    "timeoutUnits": "milliseconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "x": 1010,
+    "y": 880,
+    "wires": [
+      [
+        "ac675cbf.a8ec4"
+      ]
+    ]
+  },
+  {
+    "id": "9ec67e1e.f8943",
+    "type": "function",
+    "z": "de7d9f22.760378",
+    "name": "Random colors",
+    "func": "if (msg.payload === true){\n    let r = parseInt(Math.random()*1*255);\n    let g = parseInt(Math.random()*0.15*255);\n    let b = parseInt(Math.random()*1*255);\n    msg.payload = `${r},${g},${b}`\n    \n    let r_hex = '00'+r.toString(16);\n    let g_hex = '00'+g.toString(16);\n    let b_hex = '00'+b.toString(16);\n    \n    let hex_color = '#'+r_hex.substr(r_hex.length - 2) + g_hex.substr(g_hex.length - 2) + b_hex.substr(b_hex.length - 2);\n    return [{color:hex_color},msg]\n} else if (msg.payload === false){\n    return [{color:'black'},{payload:'0,0,0'}]\n}",
+    "outputs": 2,
+    "noerr": 0,
+    "x": 1580,
+    "y": 880,
+    "wires": [
+      [
+        "bb7643a1.80528"
+      ],
+      [
+        "d51a9f0d.4b3d48"
+      ]
+    ]
+  },
+  {
+    "id": "bb7643a1.80528",
+    "type": "ui_template",
+    "z": "de7d9f22.760378",
+    "group": "b1b8d22a.186668",
+    "name": "Form LED Star dot",
+    "order": 11,
+    "width": "2",
+    "height": "1",
+    "format": "<svg>\n<circle cx=\"10\" cy=\"10\" r=\"10\" style=\"stroke: none; fill: {{msg.color}};\"/>\n</svg>",
+    "storeOutMessages": true,
+    "fwdInMessages": true,
+    "templateScope": "local",
+    "x": 1960,
+    "y": 840,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "9558bb45.114358",
+    "type": "ui_switch",
+    "z": "de7d9f22.760378",
+    "name": "Switch LED Star",
+    "label": "Switch LED Star",
+    "group": "b1b8d22a.186668",
+    "order": 12,
+    "width": "4",
+    "height": "1",
+    "passthru": true,
+    "decouple": "false",
+    "topic": "LED Star",
+    "style": "",
+    "onvalue": "true",
+    "onvalueType": "bool",
+    "onicon": "",
+    "oncolor": "",
+    "offvalue": "false",
+    "offvalueType": "bool",
+    "officon": "",
+    "offcolor": "",
+    "x": 1390,
+    "y": 880,
+    "wires": [
+      [
+        "9ec67e1e.f8943"
+      ]
+    ]
+  },
+  {
+    "id": "ac675cbf.a8ec4",
+    "type": "switch",
+    "z": "de7d9f22.760378",
+    "name": "just turn on",
+    "property": "payload",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "true"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 1200,
+    "y": 880,
+    "wires": [
+      [
+        "9558bb45.114358"
+      ]
+    ]
+  },
+  {
+    "id": "50e07c4b.c14eac",
+    "type": "ui_colour_picker",
+    "z": "de7d9f22.760378",
+    "name": "Color picker",
+    "label": "Color picker for star",
+    "group": "ffaa2000.a205f",
+    "format": "hex",
+    "outformat": "string",
+    "showSwatch": true,
+    "showPicker": false,
+    "showValue": false,
+    "showHue": false,
+    "showAlpha": false,
+    "showLightness": true,
+    "dynOutput": "false",
+    "order": 5,
+    "width": "6",
+    "height": "1",
+    "passthru": true,
+    "topic": "color",
+    "x": 1380,
+    "y": 940,
+    "wires": [
+      [
+        "fd3778.91ee0088"
+      ]
+    ]
+  },
+  {
+    "id": "92d951d5.b5f73",
+    "type": "function",
+    "z": "de7d9f22.760378",
+    "name": "int to hex value",
+    "func": "msg.payload = '#'+msg.payload;\nreturn msg;",
+    "outputs": 1,
+    "noerr": 0,
+    "x": 1780,
+    "y": 940,
+    "wires": [
+      [
+        "d51a9f0d.4b3d48"
+      ]
+    ]
+  },
+  {
+    "id": "f056b31.614635",
+    "type": "comment",
+    "z": "de7d9f22.760378",
+    "name": "Activation with human-pulldown",
+    "info": "",
+    "x": 160,
+    "y": 680,
+    "wires": []
+  },
+  {
+    "id": "fd3778.91ee0088",
+    "type": "ui_text_input",
+    "z": "de7d9f22.760378",
+    "name": "Color picker value",
+    "label": "Color value",
+    "group": "ffaa2000.a205f",
+    "order": 0,
+    "width": 0,
+    "height": 0,
+    "passthru": true,
+    "mode": "text",
+    "delay": 300,
+    "topic": "",
+    "x": 1580,
+    "y": 940,
+    "wires": [
+      [
+        "92d951d5.b5f73"
+      ]
+    ]
+  },
+  {
+    "id": "ffaa2000.a205f",
+    "type": "ui_group",
+    "z": "",
+    "name": "Settings",
+    "tab": "9ffc1f3c.ffa73",
+    "order": 2,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "b1b8d22a.186668",
+    "type": "ui_group",
+    "z": "de7d9f22.760378",
+    "name": "LEDs",
+    "tab": "9ffc1f3c.ffa73",
+    "order": 1,
+    "disp": true,
+    "width": "6",
+    "collapse": false
+  },
+  {
+    "id": "9ffc1f3c.ffa73",
+    "type": "ui_tab",
+    "z": "de7d9f22.760378",
+    "name": "RaspbyKrippe",
+    "icon": "dashboard",
+    "order": 1
+  }
+]

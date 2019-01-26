@@ -1,0 +1,242 @@
+[
+  {
+    "id": "2567f91e.585d0e",
+    "type": "delay",
+    "z": "c3a24dff.23e748",
+    "name": "delay msg",
+    "pauseType": "delayv",
+    "timeout": "3",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "1",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "x": 380,
+    "y": 320,
+    "wires": [
+      [
+        "459e1575.2a743c"
+      ]
+    ]
+  },
+  {
+    "id": "43975985.613fd",
+    "type": "inject",
+    "z": "c3a24dff.23e748",
+    "name": "open",
+    "topic": "open",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 120,
+    "y": 190,
+    "wires": [
+      [
+        "7266a0f9.787ba"
+      ]
+    ]
+  },
+  {
+    "id": "d12a997d.4c3328",
+    "type": "inject",
+    "z": "c3a24dff.23e748",
+    "name": "opened",
+    "topic": "opened",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 120,
+    "y": 240,
+    "wires": [
+      [
+        "7266a0f9.787ba"
+      ]
+    ]
+  },
+  {
+    "id": "88bb096e.8f9f98",
+    "type": "inject",
+    "z": "c3a24dff.23e748",
+    "name": "close",
+    "topic": "close",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 120,
+    "y": 296,
+    "wires": [
+      [
+        "7266a0f9.787ba"
+      ]
+    ]
+  },
+  {
+    "id": "c0e3de67.9d8a78",
+    "type": "inject",
+    "z": "c3a24dff.23e748",
+    "name": "closed",
+    "topic": "closed",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 120,
+    "y": 346,
+    "wires": [
+      [
+        "7266a0f9.787ba"
+      ]
+    ]
+  },
+  {
+    "id": "9d6817d0.f17d08",
+    "type": "inject",
+    "z": "c3a24dff.23e748",
+    "name": "unlock",
+    "topic": "unlock",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 120,
+    "y": 130,
+    "wires": [
+      [
+        "7266a0f9.787ba"
+      ]
+    ]
+  },
+  {
+    "id": "7266a0f9.787ba",
+    "type": "state-machine",
+    "z": "c3a24dff.23e748",
+    "name": "valve with feedback",
+    "triggerProperty": "topic",
+    "triggerPropertyType": "msg",
+    "stateProperty": "topic",
+    "statePropertyType": "msg",
+    "outputStateChangeOnly": true,
+    "throwException": false,
+    "states": [
+      "opened",
+      "opening",
+      "closed",
+      "closing",
+      "locked"
+    ],
+    "transitions": [
+      {
+        "name": "open",
+        "from": "closed",
+        "to": "opening"
+      },
+      {
+        "name": "opened",
+        "from": "opening",
+        "to": "opened"
+      },
+      {
+        "name": "close",
+        "from": "opened",
+        "to": "closing"
+      },
+      {
+        "name": "closed",
+        "from": "closing",
+        "to": "closed"
+      },
+      {
+        "name": "timeout",
+        "from": "closing",
+        "to": "locked"
+      },
+      {
+        "name": "timeout",
+        "from": "opening",
+        "to": "locked"
+      },
+      {
+        "name": "unlock",
+        "from": "locked",
+        "to": "opened"
+      }
+    ],
+    "x": 410,
+    "y": 190,
+    "wires": [
+      [
+        "459e1575.2a743c",
+        "74f96f33.07e158"
+      ]
+    ]
+  },
+  {
+    "id": "459e1575.2a743c",
+    "type": "function",
+    "z": "c3a24dff.23e748",
+    "name": "timeout function",
+    "func": "// Required to only not pass through the lock-state of old commands.\ncontext.order_id = context.order_id || 0;\n\nif (msg.topic == 'opening' || msg.topic == 'closing'){\n    context.order_id = msg.payload;\n    msg.topic = 'timeout';\n    return [null,msg];\n} else if (msg.topic == 'timeout' & msg.payload == context.order_id){\n    return [msg,null];\n}",
+    "outputs": 2,
+    "noerr": 0,
+    "x": 390,
+    "y": 260,
+    "wires": [
+      [
+        "7266a0f9.787ba"
+      ],
+      [
+        "2567f91e.585d0e"
+      ]
+    ]
+  },
+  {
+    "id": "74f96f33.07e158",
+    "type": "debug",
+    "z": "c3a24dff.23e748",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "topic",
+    "x": 650,
+    "y": 190,
+    "wires": []
+  },
+  {
+    "id": "d93644b9.35536",
+    "type": "comment",
+    "z": "c3a24dff.23e748",
+    "name": "Avaliable commands",
+    "info": "msg.topic = command\nmsg.payload = timestamp, required to be unique for each command",
+    "x": 150,
+    "y": 70,
+    "wires": []
+  },
+  {
+    "id": "d555ec02.9af68",
+    "type": "comment",
+    "z": "c3a24dff.23e748",
+    "name": "Process-Logic",
+    "info": "State machine controlling the state,\n\nDelay with state to send 'lock' command after\ntimeout is up. Only passes through the timeout\nof the latest command.",
+    "x": 380,
+    "y": 130,
+    "wires": []
+  }
+]

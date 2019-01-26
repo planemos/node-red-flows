@@ -1,0 +1,137 @@
+[
+  {
+    "id": "f6727c8b.021a6",
+    "type": "function",
+    "z": "74ab6b40.be84b4",
+    "name": "loop",
+    "func": "context.loop = context.loop || \"stop\";\ncontext.loops = context.loops || 0;\ncontext.delay = context.delay || 1000;\n\nif (msg.topic=='delay'){\n    context.delay = msg.payload;\n}else{\n    switch (msg.payload) {\n    \tcase \"stop\":\n    \t\tcontext.loops = context.loops + 1;\n    \t\tmsg.payload = \"stopped\";\n    \t\tmsg.delay = context.delay;\n    \t\tcontext.loop = \"stop\";\n    \t\treturn [msg,null];\n    \tcase \"toggle\":\n    \t\tif (context.loop == \"start\") {\n    \t\t\tmsg.payload = \"stopped\";\n    \t\t\tmsg.delay = context.delay;\n    \t\t\tcontext.loop = \"stop\";\n    \t\t\treturn [msg,null];\n    \t\t} else {\n    \t\t\tmsg.payload = \"started\";\n    \t\t\tmsg.delay = context.delay;\n    \t\t\tcontext.loop = \"loop\";\n    \t\t\tcontext.loops = 1;\n    \t\t\treturn [msg,msg];\n    \t\t}\n    \tcase \"start\":\n    \t\tmsg.payload = \"started\";\n    \t\tmsg.delay = context.delay;\n    \t\tcontext.loop = \"loop\";\n    \t\tcontext.loops = 1;\n    \t\treturn [msg,msg];\n    \tdefault:\n    \t\tif (context.loop == \"loop\") {\n    \t\t\tcontext.loops = context.loops + 1;\n    \t\t\tmsg.payload = \"loop:\" + context.loops;\n    \t\t\tmsg.delay = context.delay;\n    \t\t\treturn [msg,msg];\n    \t\t} else {\n    \t\t\treturn [null,null]; \n    \t\t}\n    }\n}",
+    "outputs": "2",
+    "noerr": 0,
+    "x": 424,
+    "y": 151,
+    "wires": [
+      [
+        "a7008d6f.e2d67"
+      ],
+      [
+        "e258ab68.18484"
+      ]
+    ]
+  },
+  {
+    "id": "e258ab68.18484",
+    "type": "delay",
+    "z": "74ab6b40.be84b4",
+    "name": "",
+    "pauseType": "delayv",
+    "timeout": "1",
+    "timeoutUnits": "seconds",
+    "rate": "1",
+    "nbRateUnits": "",
+    "rateUnits": "second",
+    "randomFirst": "1",
+    "randomLast": "5",
+    "randomUnits": "seconds",
+    "drop": false,
+    "x": 422,
+    "y": 219,
+    "wires": [
+      [
+        "f6727c8b.021a6"
+      ]
+    ]
+  },
+  {
+    "id": "a7008d6f.e2d67",
+    "type": "debug",
+    "z": "74ab6b40.be84b4",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "complete": "false",
+    "x": 613,
+    "y": 146,
+    "wires": []
+  },
+  {
+    "id": "53958e12.c6a38",
+    "type": "inject",
+    "z": "74ab6b40.be84b4",
+    "name": "start loop",
+    "topic": "loop2",
+    "payload": "start",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": "",
+    "x": 194,
+    "y": 90,
+    "wires": [
+      [
+        "f6727c8b.021a6"
+      ]
+    ]
+  },
+  {
+    "id": "e379d6cc.fe1968",
+    "type": "inject",
+    "z": "74ab6b40.be84b4",
+    "name": "stop loop",
+    "topic": "loop2",
+    "payload": "stop",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": "",
+    "x": 191,
+    "y": 130,
+    "wires": [
+      [
+        "f6727c8b.021a6"
+      ]
+    ]
+  },
+  {
+    "id": "e61aae73.dc38e8",
+    "type": "inject",
+    "z": "74ab6b40.be84b4",
+    "name": "",
+    "topic": "delay",
+    "payload": "3000",
+    "payloadType": "num",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 188,
+    "y": 171,
+    "wires": [
+      [
+        "f6727c8b.021a6"
+      ]
+    ]
+  },
+  {
+    "id": "255232c6.0e5416",
+    "type": "inject",
+    "z": "74ab6b40.be84b4",
+    "name": "",
+    "topic": "delay",
+    "payload": "200",
+    "payloadType": "num",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "x": 186,
+    "y": 212,
+    "wires": [
+      [
+        "f6727c8b.021a6"
+      ]
+    ]
+  }
+]
